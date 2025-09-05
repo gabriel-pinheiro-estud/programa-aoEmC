@@ -1,47 +1,89 @@
 #include <stdio.h>
 
-int main(void) {
-    int movimentosTorre = 5;
-    printf("Movimento da Torre:\n");
-    for (int i = 1; i <= movimentosTorre; i++) {
-        printf("Direita (casa %d)\n", i);
+
+void moverTorreDireitaRec(int casasRestantes);
+void moverBispoCimaDireitaRec(int casasRestantes);
+void moverRainhaEsquerdaRec(int casasRestantes);
+
+const int TORRE_PASSOS   = 5;
+const int BISPO_PASSOS   = 5;
+const int RAINHA_PASSOS  = 8;
+
+void moverTorreDireitaRec(int casasRestantes) {
+    if (casasRestantes <= 0) {
+        return;
     }
 
-    int movimentosBispo = 5;
-    int i = 1;
-    printf("\nMovimento do Bispo:\n");
-    while (i <= movimentosBispo) {
-        printf("Cima, Direita (casa %d)\n", i);
-        i++;
+    printf("Direita\n");
+
+    moverTorreDireitaRec(casasRestantes - 1);
+}
+
+void moverBispoCimaDireitaRec(int casasRestantes) {
+    if (casasRestantes <= 0) {
+        return;
     }
 
-    int movimentosRainha = 8;
-    int j = 1;
-    printf("\nMovimento da Rainha:\n");
-    do {
-        printf("Esquerda (casa %d)\n", j);
-        j++;
-    } while (j <= movimentosRainha);
-
-    int movimentosBaixo = 2;
-    int movimentosEsquerda = 1;
-
-    printf("\nMovimento do Cavalo:\n");
-
-    for (int k = 1; k <= movimentosBaixo; k++) {
-        printf("Baixo (passo %d)\n", k);
-        
-        int contador = 0;
-        while (contador < 0) {
-            contador++;
+    for (int v = 0; v < 1; v++) {
+        printf("Cima\n");
+        for (int h = 0; h < 1; h++) {
+            printf("Direita\n");
         }
     }
 
-    int l = 1;
-    while (l <= movimentosEsquerda) {
-        printf("Esquerda (passo %d)\n", l);
-        l++;
+    moverBispoCimaDireitaRec(casasRestantes - 1);
+}
+
+void moverRainhaEsquerdaRec(int casasRestantes) {
+    if (casasRestantes <= 0) {
+        return;
     }
+
+    printf("Esquerda\n");
+
+    moverRainhaEsquerdaRec(casasRestantes - 1);
+}
+
+void moverCavaloCimaDireita(void) {
+    const int fasesTotais = 3;
+
+    for (int fase = 1; fase <= fasesTotais; fase++) {
+        int passosAlvo = (fase < 3) ? 1 : 1;
+
+        int passo = 0;
+        while (passo <= passosAlvo) {
+            if (passo == 0) {
+                passo++;
+                continue;
+            }
+
+            if (fase == 1 || fase == 2) {
+                printf("Cima\n");
+            } else {
+                printf("Direita\n");
+            }
+
+            if (passo == passosAlvo) {
+                break;
+            }
+
+            passo++;
+        }
+    }
+}
+
+int main(void) {
+    printf("Movimento da Torre (recursivo):\n");
+    moverTorreDireitaRec(TORRE_PASSOS);
+
+    printf("\nMovimento do Bispo (recursivo + loops aninhados):\n");
+    moverBispoCimaDireitaRec(BISPO_PASSOS);
+
+    printf("\nMovimento da Rainha (recursivo):\n");
+    moverRainhaEsquerdaRec(RAINHA_PASSOS);
+
+    printf("\nMovimento do Cavalo (loops aninhados c/ continue/break):\n");
+    moverCavaloCimaDireita();
 
     return 0;
 }
