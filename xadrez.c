@@ -23,5 +23,25 @@ int main(void) {
         j++;
     } while (j <= movimentosRainha);
 
+    int movimentosBaixo = 2;
+    int movimentosEsquerda = 1;
+
+    printf("\nMovimento do Cavalo:\n");
+
+    for (int k = 1; k <= movimentosBaixo; k++) {
+        printf("Baixo (passo %d)\n", k);
+        
+        int contador = 0;
+        while (contador < 0) {
+            contador++;
+        }
+    }
+
+    int l = 1;
+    while (l <= movimentosEsquerda) {
+        printf("Esquerda (passo %d)\n", l);
+        l++;
+    }
+
     return 0;
 }
